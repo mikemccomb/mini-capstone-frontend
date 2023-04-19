@@ -1,11 +1,18 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { ProductsIndex } from "./ProductsIndex";
 
 export function Content() {
-  const products = [
-    { id: 1, name: "stuff" },
-    { id: 2, name: "things" },
-    { id: 3, name: "gizmos" },
-  ];
+  const [products, setProducts] = useState([]);
+
+  const handleIndexProducts = () => {
+    axios.get("http://localhost:3000/products.json").then((response) => {
+      console.log(response.data);
+      setProducts(response.data);
+    });
+  };
+
+  useEffect(handleIndexProducts, []);
 
   return (
     <div>
